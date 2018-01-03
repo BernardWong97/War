@@ -1,9 +1,13 @@
 #include <stdio.h>
+#include "Header.h"
 
 // The main where the game runs
 void main() {
 	// Variables
 	int numOfPlayers;
+
+	// Initialization
+	gameRound = 0;
 
 	// Prompt input how many players are playing
 	printf("Please enter how many players are playing ( 2 - 10 ): ");
@@ -15,5 +19,6 @@ void main() {
 		scanf("%d", &numOfPlayers);
 	} // while loop validate number of players
 
+	gameRound++;
 	getch();
 } // main
