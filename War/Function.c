@@ -4,55 +4,23 @@
 
 void generateDecks() {
 	// Deck array
-	deck[0] = 'A';
-	deck[1] = '2';
-	deck[2] = '3';
-	deck[3] = '4';
-	deck[4] = '5';
-	deck[5] = '6';
-	deck[6] = '7';
-	deck[7] = '8';
-	deck[8] = '9';
-	deck[9] = '10';
-	deck[10] = 'J';
-	deck[11] = 'Q';
-	deck[12] = 'K';
+	strcpy(deck[0], "2");
+	strcpy(deck[1], "3");
+	strcpy(deck[2], "4");
+	strcpy(deck[3], "5");
+	strcpy(deck[4], "6");
+	strcpy(deck[5], "7");
+	strcpy(deck[6], "8");
+	strcpy(deck[7], "9");
+	strcpy(deck[8], "10");
+	strcpy(deck[9], "J");
+	strcpy(deck[10], "Q");
+	strcpy(deck[11], "K");
+	strcpy(deck[12], "A");
 
 	// Suit array
-	strcpy(suit[0], "clubs");
-	strcpy(suit[1], "diamonds");
-	strcpy(suit[2], "hearts");
-	strcpy(suit[3], "spades");
+	strcpy(suit[0], "Clubs");
+	strcpy(suit[1], "Diamonds");
+	strcpy(suit[2], "Hearts");
+	strcpy(suit[3], "Spades");
 } // generateDecks()
-
-void distributeCards(player p, int num) {
-	// Data members
-	int randNum;
-
-	p.playerNum = num;
-
-	// for loop populate player's cards
-	for (int i = 0; i < GAME_ROUND; i++) {
-		randNum = rand() % 4;
-
-		// distribute 13 cards
-		p.cards[i] = deck[i];
-
-		// switch statement generate random suit for each card
-		switch (randNum) {
-			case 0:
-				strcpy(p.cardsuit[i], suit[0]);
-				break;
-			case 1:
-				strcpy(p.cardsuit[i], suit[1]);
-				break;
-			case 2:
-				strcpy(p.cardsuit[i], suit[2]);
-				break;
-			case 3:
-				strcpy(p.cardsuit[i], suit[3]);
-				break;
-		} // switch
-	} // for
-	
-} // distributeCards()
