@@ -6,6 +6,8 @@
 void main() {
 	// Variables
 	int numOfPlayers;
+	int chooseCorrect;
+	char choseCard[3];
 	player player[10];
 
 	// Initialization
@@ -30,6 +32,7 @@ void main() {
 
 		// for loop distribute cards to each player
 		for (int j = 0; j < 13; j++) {
+			player[i].numOfCard = 13;
 			strcpy(player[i].cards[j], deck[j]);
 
 			// switch statement generate random suit for each card
@@ -51,12 +54,49 @@ void main() {
 			} // switch
 		} // for
 		
+		// Output Round number
+		printf("====Round %d====\n", gameRound + 1);
 
-		printf("\nPlayer %d's card is: \n", player[i].playerNum);
+		// Output Player number
+		printf("\nPlayer %d:\n--Your cards--\n", player[i].playerNum);
 
-		for (int j = 0; j < GAME_ROUND; j++) {
-			printf("|%s %s| ", player[i].cards[j], player[i].cardsuit[j]);
+		// for loop output cards on hand
+		for (int j = 0; j < player[i].numOfCard; j++) {
+			printf("|%-2s  %-8s|\n", player[i].cards[j], player[i].cardsuit[j]);
 		} // for
+
+		// Prompt player choose what card to play
+		printf("\nPlease enter the rank of the card that you want to play ( 2 - A ): ");
+		scanf("%s", choseCard);
+
+		chooseCorrect = 0;
+		while (chooseCorrect == 0) {
+			// foor loop iterates through cards
+			for (int j = 0; j < player[i].numOfCard; j++) {
+				// if statement determine if the card is available
+				if (strcmp(player[i].cards[j], choseCard) == 0) {
+					chooseCorrect = 1;
+					player[i].numOfCard--;
+					// for loop delete the card from hand
+					for (int k = j; k < player[i].numOfCard; k++) {
+						strcpy(player[i].cards[k], player[i].cards[k + 1]);
+						strcpy(player[i].cardsuit[k], player[i].cardsuit[k + 1]);
+					} // for
+				} // if
+			} // for
+
+			if (chooseCorrect == 0) {
+				printf("Sorry, that card does not exist in your hand, please try again.\n");
+				printf("\nPlease enter the rank of the card that you want to play ( 2 - A ): ");
+				scanf("%s", choseCard);
+			} // if
+		} // while
+
+		for (int j = 0; j < player[i].numOfCard; j++) {
+			printf("|%-2s  %-8s|\n", player[i].cards[j], player[i].cardsuit[j]);
+		} // for
+
+
 	} // for
 
 	gameRound++;

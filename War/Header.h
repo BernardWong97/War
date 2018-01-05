@@ -5,10 +5,12 @@
 int gameRound;
 char deck[13][3];
 char suit[4][9];
+char cardValue[13];
 
 // Structure
 typedef struct {
 	int playerNum;
+	int numOfCard;
 	char cards[13][3];
 	char cardsuit[13][9];
 }player;
