@@ -13,6 +13,7 @@ typedef struct {
 	int numOfCard;
 	char cards[13][3];
 	char cardsuit[13][9];
+	char chosenCard[13];
 }player;
 
 // Function Prototypes
