@@ -21,4 +21,5 @@ typedef struct {
 void generateDecks();
 int displayStatus(player p[], int numOfPlayers);
 char roundOption(char choice);
+int exitApp(char choice);
 

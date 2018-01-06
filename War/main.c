@@ -17,7 +17,9 @@ int main() {
 	highestPlayer = 0;
 	choice = ' ';
 
+	NEW: // GOTO destination new game
 	// New Game - Prompt input how many players are playing
+	system("@cls||clear");
 	printf("=====NEW GAME=====\n");
 	printf("Please enter how many players are playing ( 2 - 10 ): ");
 	scanf("%d", &numOfPlayers);
@@ -121,18 +123,28 @@ int main() {
 
 			// Options for players
 			choice = roundOption(choice);
-			
+
 			switch (choice) {
-				case 'o':
-				case 'O':
-					exit = displayStatus(player, numOfPlayers);
-					if (exit == 1) {
+			case 'o':
+			case 'O':
+				exit = displayStatus(player, numOfPlayers);
+				// if exit choice new game or quit
+				if (exit == 1) {
+					if (exitApp(choice) == 1) {
+						goto NEW;
+					}
+					else {
 						return 0;
-					} // if
-					break;
-				case 'X':
-				case 'x':
-					return 0;
+					}// nested if..else
+				} // if
+				break;
+			case 'X':
+			case 'x':
+				// if exit choice new game or quit
+				if (exitApp(choice) == 1) {
+					goto NEW;
+				} // if
+				return 0;
 			} // switch
 		} // for
 
@@ -150,7 +162,7 @@ int main() {
 		if (highestPlayer != 11) {
 			totalPoint = 0;
 		} // if
-			
+
 		// Determine same value take themselves out
 		for (int i = 0; i < numOfPlayers; i++) {
 			for (int j = i + 1; j < numOfPlayers; j++) {
@@ -188,7 +200,7 @@ int main() {
 		for (int i = 0; i < numOfPlayers; i++) {
 			printf("Player %d - %d points.\n", player[i].playerNum, player[i].playerPoint);
 		} // for
-		
+
 		gameRound++;
 		printf("Press any key to continue.\n", winner);
 		getch();

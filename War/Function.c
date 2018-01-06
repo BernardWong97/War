@@ -94,3 +94,33 @@ char roundOption(char choice) {
 
 	return choice;
 } // roundOption
+
+int exitApp(char choice) {
+	int loopTrue = 0;
+	printf("\nPlease enter 'n' to create a new game or 'x' to exit the application: ");
+	scanf(" %c", &choice);
+
+	if (choice == 'n') {
+		loopTrue = 1;
+		return 1;
+	}
+	else if (choice == 'x') {
+		loopTrue = 1;
+	} // if..else
+	
+	while (loopTrue == 0) {
+		printf("Sorry, only character 'n'/'x' are allowed to enter, please try again.\n");
+		printf("Please enter 'n' to create a new game or 'x' to exit the application: ");
+		scanf(" %c", &choice);
+
+		if (choice == 'n') {
+			loopTrue = 1;
+			return 1;
+		}
+		else if (choice == 'x') {
+			loopTrue = 1;
+		} // if..else
+	} // while
+
+	return 0;
+} // exitApp()
