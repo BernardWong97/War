@@ -23,10 +23,4 @@ void generateDecks() {
 	strcpy(suit[1], "Diamonds");
 	strcpy(suit[2], "Hearts");
 	strcpy(suit[3], "Spades");
-
-	// Card Value
-	for (int i = 0; i < GAME_ROUND; i++) {
-		cardValue[i] = i + 2;
-	} // for
-	
 } // generateDecks()
