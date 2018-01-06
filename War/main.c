@@ -217,7 +217,10 @@ int main() {
 	system("@cls||clear");
 	printf("============= Game Over =============\n");
 	printf("The winner of this game is PLAYER %d!\n", winner);
-	printf("Press any key to continue.\n", winner);
-	getch();
+
+	// if exit choice new game or quit
+	if (exitApp(choice) == 1) {
+		goto NEW;
+	} // if
 	return 0;
 } // main
