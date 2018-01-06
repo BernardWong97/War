@@ -24,3 +24,73 @@ void generateDecks() {
 	strcpy(suit[2], "Hearts");
 	strcpy(suit[3], "Spades");
 } // generateDecks()
+
+int displayStatus(player p[], int numOfPlayers) {
+	char choice;
+	int loopTrue = 0;
+
+	// display the game status
+	printf("\nGame Status:\n");
+	for (int i = 0; i < numOfPlayers; i++) {
+		printf("Player %d has %d points.\n", p[i].playerNum, p[i].playerPoint);
+	} // for
+
+	// prompt player input another option
+	printf("\nPlease enter a character option (c/Complete round, x/Exit game): ");
+	scanf(" %c", &choice);
+
+	if (choice == 'x') {
+		loopTrue = 1;
+		return 1;
+	} else if (choice == 'c') {
+		loopTrue = 1;
+	} // if..else
+
+	while (loopTrue == 0) {
+		printf("Sorry, only character 'c'/'x' are allowed to enter, please try again.\n");
+		printf("Please enter a character option (c/Complete round, x/Exit game): ");
+		scanf(" %c", &choice);
+
+		if (choice == 'x') {
+			loopTrue = 1;
+			return 1;
+		}
+		else if (choice == 'c') {
+			loopTrue = 1;
+		} // if..else
+	} // while
+
+	return 0;
+} // displayStatus()
+
+char roundOption(char choice) {
+	int loopTrue = 0;
+	printf("Please enter a character option (c/Complete round, o/Output status, x/Exit game): ");
+	scanf(" %c", &choice);
+
+	if (choice == 'o') {
+		loopTrue = 1;
+	}else if (choice == 'x') {
+		loopTrue = 1;
+	}else if (choice == 'c') {
+		loopTrue = 1;
+	} // if..else
+
+	while (loopTrue == 0) {
+		printf("Sorry, only character 'c'/'o'/'x' are allowed to enter, please try again.\n");
+		printf("Please enter a character option (c/Complete round, o/Output status, x/Exit game): ");
+		scanf(" %c", &choice);
+
+		if (choice == 'o') {
+			loopTrue = 1;
+		}
+		else if (choice == 'x') {
+			loopTrue = 1;
+		}
+		else if (choice == 'c') {
+			loopTrue = 1;
+		} // if..else
+	} // while
+
+	return choice;
+} // roundOption

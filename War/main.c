@@ -3,15 +3,19 @@
 #include "Header.h"
 
 // The main where the game runs
-void main() {
+int main() {
 	// Variables
-	int numOfPlayers, chooseCorrect, playedCardValue[10], highestCard, highestPlayer, totalPoint, value;
-	char chooseCard[3], chosenCard[13];
+	FILE * filep;
+	int numOfPlayers, chooseCorrect, playedCardValue[10], highestCard, highestPlayer, totalPoint, value, winner, exit;
+	char chooseCard[3], chosenCard[13], choice;
 	player player[10];
 
 	// Initialization
 	gameRound = 1;
 	highestCard = 0;
+	winner = 0;
+	highestPlayer = 0;
+	choice = ' ';
 
 	// New Game - Prompt input how many players are playing
 	printf("=====NEW GAME=====\n");
@@ -30,6 +34,7 @@ void main() {
 		generateDecks();
 		value = 2;
 		player[i].playerNum = i + 1;
+		player[i].playerPoint = 0;
 
 		// for loop distribute cards to each player
 		for (int j = 0; j < 13; j++) {
@@ -112,8 +117,23 @@ void main() {
 			} // while
 
 			// Let player know what card had played
-			printf("You have chosen %s.\nPress any key to continue.", chosenCard);
-			getch();
+			printf("You have chosen %s.\n", chosenCard);
+
+			// Options for players
+			choice = roundOption(choice);
+			
+			switch (choice) {
+				case 'o':
+				case 'O':
+					exit = displayStatus(player, numOfPlayers);
+					if (exit == 1) {
+						return 0;
+					} // if
+					break;
+				case 'X':
+				case 'x':
+					return 0;
+			} // switch
 		} // for
 
 		// Output the War
@@ -126,7 +146,11 @@ void main() {
 			printf("Player %d played - %s\n", player[i].playerNum, player[i].chosenCard);
 		} // for
 
-		totalPoint = 0;
+		// if statement last round not all tie, reset total points
+		if (highestPlayer != 11) {
+			totalPoint = 0;
+		} // if
+			
 		// Determine same value take themselves out
 		for (int i = 0; i < numOfPlayers; i++) {
 			for (int j = i + 1; j < numOfPlayers; j++) {
@@ -139,18 +163,49 @@ void main() {
 		} // for
 
 		// Determine the winner of the war
+		highestPlayer = 11;
 		for (int i = 0; i < numOfPlayers; i++) {
 			totalPoint += playedCardValue[i];
+			// if winner
 			if (highestCard < playedCardValue[i]) {
 				highestCard = playedCardValue[i];
 				highestPlayer = i;
 			} // if
 		} // for
 
-		// Output result
-		printf("\nThe winner of this war is Player %d with %s: %d Points!\n", player[highestPlayer].playerNum, player[highestPlayer].chosenCard, totalPoint);
+		// If statement all tie game ( highestPlayer == 11 )
+		if (highestPlayer == 11) {
+			printf("\nAll cards tie another.\nNo winner in this round.\nPoints are rolled over to the next round.\n");
+		}
+		else {
+			// Save and Output result
+			player[highestPlayer].playerPoint = totalPoint;
+			printf("\nThe winner of this war is Player %d with %s: %d Points!\n", player[highestPlayer].playerNum, player[highestPlayer].chosenCard, totalPoint);
+		} // if..else
 
+		// Output scores
+		printf("\nScores:\n");
+		for (int i = 0; i < numOfPlayers; i++) {
+			printf("Player %d - %d points.\n", player[i].playerNum, player[i].playerPoint);
+		} // for
+		
 		gameRound++;
+		printf("Press any key to continue.\n", winner);
 		getch();
 	} // while
+
+	// Determine the winner of the game
+	for (int i = 0; i < numOfPlayers; i++) {
+		if (player[i].playerPoint > winner) {
+			winner = player[i].playerNum;
+		} // if
+	} // for
+
+	// Game Over
+	system("@cls||clear");
+	printf("============= Game Over =============\n");
+	printf("The winner of this game is PLAYER %d!\n", winner);
+	printf("Press any key to continue.\n", winner);
+	getch();
+	return 0;
 } // main

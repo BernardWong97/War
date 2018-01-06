@@ -19,4 +19,6 @@ typedef struct {
 
 // Function Prototypes
 void generateDecks();
+int displayStatus(player p[], int numOfPlayers);
+char roundOption(char choice);
 
