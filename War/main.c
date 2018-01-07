@@ -176,6 +176,7 @@ int main() {
 
 		// Determine the winner of the war
 		highestPlayer = 11;
+		highestCard = 0;
 		for (int i = 0; i < numOfPlayers; i++) {
 			totalPoint += playedCardValue[i];
 			// if winner
